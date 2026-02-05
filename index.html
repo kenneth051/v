@@ -115,6 +115,30 @@
         box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.15);
       }
 
+      .no-message {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 9999;
+
+        font-size: 2rem;
+        font-weight: 700;
+        color: #fff;
+        text-align: center;
+
+        background: rgba(0, 0, 0, 0.6);
+        padding: 20px 32px;
+        border-radius: 16px;
+
+        opacity: 0;
+        transition: opacity 0.5s ease, transform 0.5s ease;
+      }
+      .no-message.show {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.05);
+      }
+
       .fireworks-message {
         position: fixed;
         top: 50%;
@@ -176,6 +200,7 @@
         setTimeout(() => {
           fireworks.stop();
           message.classList.remove("show");
+          const text = document.getElementById("myTextarea").value=""
         }, 10000);
       }
 
@@ -184,14 +209,12 @@
         message.classList.add("show");
         setTimeout(() => {
           message.classList.remove("show");
+          const text = document.getElementById("myTextarea").value=""
         }, 5000);
       }
 
       async function sendToGoogleForm(buttonResponse) {
         const data = new FormData();
-        const message = document.getElementById("fireworksMessage");
-        message.textContent = messageText;
-        message.classList.add("show");
         const text = document.getElementById("myTextarea").value;
         data.append("entry.600507288", text);
         data.append("entry.555637811", buttonResponse);
@@ -246,7 +269,7 @@
           </div>
           <div class="fireworks mb-4"></div>
           <div id="fireworksMessage" class="fireworks-message">🎉 Yes!🌹 💖</div>
-          <div id="Oh-No" class="fireworks-message">Oh! You chose "No". 😔</div>
+          <div id="Oh-No" class="no-message">Oh! You chose "No". 😔</div>
           <div class="heart-overlay mt-4 my-4">
             <textarea
               id="myTextarea"
