@@ -213,6 +213,24 @@
         }, 5000);
       }
 
+      async function pageLoaded(){
+        const data = new FormData();
+        data.append("entry.733771876", "Yes");
+
+        try {
+          fetch(
+            "https://docs.google.com/forms/d/e/1FAIpQLSfXwpDxb-sXbPQRUet0deKc36NOczDQYmeb0s0c4MEmdyRJmw/formResponse",
+            {
+              method: "POST",
+              mode: "no-cors",
+              body: data,
+            }
+          );
+        } catch (err) {
+          console.error(err);
+        }
+      }
+
       async function sendToGoogleForm(buttonResponse) {
         const data = new FormData();
         const text = document.getElementById("myTextarea").value;
@@ -237,6 +255,9 @@
           console.error(err);
         }
       }
+    window.onload = function () {
+      pageLoaded()
+    };
     </script>
   </head>
 
